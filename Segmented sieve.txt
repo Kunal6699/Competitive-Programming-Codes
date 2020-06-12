@@ -1,0 +1,122 @@
+                                                  //    Om Namah Shivay   //
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define UNIQUE(V) (V).erase(unique((V).begin(),(V).end()),(V).end())
+#define LCM(x,y) (((x)/gcd((x),(y)))*(y))
+#define POPCOUNT __builtin_popcountll
+typedef pair < int, int > pii;
+typedef pair   <ll,ll > pll;
+
+
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,true,sizeof(a))
+#define im           int main()
+#define maxx         300005
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+
+//int knightDir[8][2] = { {-2,1},{-1,2},{1,2},{2,1},{2,-1},{-1,-2},{1,-2},{-2,-1} };
+//int dir4[4][2] = {{-1,0},{0,1},{1,0},{0,-1}};
+//int dir8[8][2] = {{-1,0},{0,1},{1,0},{0,-1},{-1,-1},{1,1},{1,-1},{-1,1}};
+
+ll n,i,j,ar[maxx],br[maxx],od,ev,p,res2,res1,k;
+//bool mark[maxx]={0};
+vec v;
+
+void ss(int lim,vector<ll> &prime)
+{
+    bool mark[lim+1];
+    mem(mark);
+    for(i=2;i*i<lim;i++)
+    {
+        if(mark[i])
+        {
+            for(j=i*i;j<lim;j+=i)
+                mark[j]=false;
+        }
+    }
+    
+    for(i=2;i<lim;i++)
+    {
+        if(mark[i]){
+            prime.pb(i);
+        cout<<i<<" ";
+        v.pb(i);
+        }
+    }
+}
+
+
+void sg(ll n)
+{
+    ll lim=floor(sqrt(n))+1;
+    vec prime;
+    ss(lim,prime);
+    int lo=lim;
+    int hi=2*lim;
+    
+    while(lo<n)
+    {
+        if(hi>=n)
+         hi=n;
+         bool mark[lim+1];
+         mem(mark);
+         
+         for(i=0;i<prime.size();i++)
+         {
+             int lolim=floor(lo/prime[i])*prime[i];
+             if(lolim<lo)
+                 lolim+=prime[i];
+                 
+             for(j=lolim;j<hi;j+=prime[i])    
+             (mark[j-lo]=false);
+             
+         }      
+            for(i=lo;i<hi;i++)
+                if(mark[i-lo]==true)
+                   { cout<<i<<" ";
+                   v.pb(i);
+                   }
+                    
+                 lo=lo+lim;
+                 hi=hi+lim;
+         
+         
+  
+    }
+    
+    
+}
+
+im
+{
+   sg(100000000);
+   
+    nl;
+    cout<<v.size(); // Total primes less than 10000000000
+    
+    
+    
+}

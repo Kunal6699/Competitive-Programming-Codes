@@ -1,0 +1,42 @@
+int lps(string s)
+ {
+    
+      n=s.length();
+      int a[n];
+      
+      for(i=n-1;i>=0;i--)
+      {
+     int bck=0;
+     for(j=i;j<n;j++)
+     {
+         if(j==i)
+           a[j]=1;  
+          else if(s[i]==s[j])
+          {
+              int tmp=a[j];
+              a[j]=bck+2;
+              bck=tmp;
+          } 
+          else
+          {
+              bck=a[j];
+              a[j]=max(a[j-1],a[j]);
+              
+          }
+           
+     }
+     
+      }
+      return a[n-1]; 
+ }
+
+
+
+
+im
+{
+    string s;
+    cin>>s;
+    cout<<lps(s);
+    
+}

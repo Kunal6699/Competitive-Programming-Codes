@@ -1,0 +1,95 @@
+ //   Problem of
+ //   do no a aur b ke beech m digit d kitne (k) baar aa raha hai !!!!!!!!!!!!!!!!
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         1000005
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+ll n,i,j,ar[maxx],m;
+
+ll dp[12][12][12];
+ll a,b,d,k;
+vector<ll> num;
+
+ ll call(ll pos,ll cnt,ll f)
+ {
+     if(cnt>k)
+         return 0;
+         if(pos==num.size())
+         {
+             if(cnt==k) return 1;
+             return 0;
+         }  
+         
+         if(dp[pos][cnt][f]!=-1) 
+             return dp[pos][cnt][f];
+             ll res=0;
+             ll LMT;
+             if(f==0)
+                 LMT=num[pos];
+             else LMT=9;
+       for(ll dgt=0;dgt<=LMT;dgt++)
+       {
+           ll nf=f;
+           ll ncnt=cnt;
+           if(f==0&&dgt<LMT) nf=1;
+           if(dgt==d) ncnt++;
+           if(ncnt<=k)
+               res+=call(pos+1,ncnt,nf);
+       }  
+        dp[pos][cnt][f]=res;     
+        return res;
+             
+ }
+   ll solve(ll b)
+   {
+       num.clear();
+       while(b>0)
+       {
+           num.pb(b%10);
+           b/=10;
+       }
+       reverse(num.begin(),num.end());
+       memset(dp,-1,sizeof(dp));
+       ll res=call(0,0,0);
+       return res;
+   }
+   
+   im
+   {
+       scnl(a,b);
+       scnl(d,k);
+       ll res=solve(b)-solve(a-1);
+       prnt(res);
+       nl;
+   }

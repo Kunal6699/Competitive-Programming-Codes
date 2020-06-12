@@ -1,0 +1,96 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         100005
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+ll ar[maxx],siz[maxx];
+
+
+ll root(ll x)
+{
+    while(ar[x]!=x)
+    {
+        ar[x]=ar[ar[x]];
+        x=ar[x];
+    }
+    return x;
+}
+
+void unio(ll aa,ll bb)
+{
+    ll ra=root(aa);
+    ll rb=root(bb);
+    if(ra==rb)
+    return;
+    if(siz[ra]>siz[rb])
+    {
+        ar[rb]=ar[ra];
+        siz[ra]+=siz[rb];
+        siz[rb]=0;
+    }
+     else
+     {
+         ar[ra]=ar[rb];
+         siz[rb]+=siz[ra];
+         siz[ra]=0;
+     }
+            
+}
+
+im
+{
+    ll n,m,j,a,b;
+    scnl(n,m);
+   // init(n);
+rep(i,1,n+1)
+    {
+        ar[i]=i;
+        siz[i]=1;
+    }   
+     j=m;                                                                                                                                                                                                                                                                                                                
+    while(m--)
+    {
+        
+        
+       
+        scnl(a,b);
+        unio(a,b);
+        vector<ll> cnt;
+        rep(i,1,n+1)
+         {
+             //if(size[i]!=0)
+             cnt.pb(siz[i]);
+             
+         }
+         sort(cnt.begin(),cnt.end());
+             rep(i,0,cnt.size()){
+             if(cnt[i]!=0)
+             cout<<cnt[i]<<" ";}
+             nl;
+    }
+}

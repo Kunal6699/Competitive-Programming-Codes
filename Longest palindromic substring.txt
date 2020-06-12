@@ -1,0 +1,46 @@
+int lps(string s)
+{
+    ll n=s.length();
+    ll st=0,mx=1;
+    ll lo,hi;
+    
+    // For Even 
+    for(i=1;i<n;i++)
+    {
+        lo=i-1;
+        hi=i;
+        while(lo>=0&&hi<n&&s[lo]==s[hi])
+        {
+            if(hi-lo+1>mx)
+            {
+                st=lo;
+                mx=hi-lo+1;
+            }
+            lo--; hi++;
+        }
+        
+        // For odd
+          lo=i-1;
+          hi=i+1;
+          while(lo>=0&&hi<n&&s[lo]==s[hi])
+          {
+              if(hi-lo+1>mx)
+              {
+                  st=lo;
+                  mx=hi-lo+1;
+              }
+              lo--; hi++;
+          }  
+              
+              
+        
+        
+        
+    }
+     for(i=st;i<st+mx;i++)
+         cout<<s[i];
+         nl;
+    return mx;
+    
+    
+}

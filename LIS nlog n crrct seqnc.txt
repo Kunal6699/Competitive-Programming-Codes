@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+
+	vector<int> A = { 1,5,6,2,7,9 };
+
+	vector<int> aux(A.size(), 0);
+	vector<vector<int>> aux_str(A.size());
+
+
+
+	aux[0] = A[0];
+
+	aux_str[0].push_back(A[0]);
+	int aux_size = 1;
+	for (int i = 1; i < A.size(); i++) {
+
+		auto it =lower_bound(aux.begin(), aux.begin() + aux_size, A[i]);
+
+		if (it == aux.begin() + aux_size) {
+			aux[aux_size] = A[i];
+						
+			aux_str[aux_size] = aux_str[aux_size - 1];
+			aux_str[aux_size].push_back(A[i]);
+			aux_size++;
+		}
+		else {
+			if (*it != A[i]) {
+				aux[it- aux.begin()] = A[i];
+				
+				aux_str[it - aux.begin()][aux_str[it - aux.begin()].size() - 1] = A[i];
+			}
+		}
+
+	}
+
+	cout << "length " << aux_size << endl;
+
+	for (auto x : aux_str[aux_size - 1]) {
+		cout << x << " ";
+	}
+
+}

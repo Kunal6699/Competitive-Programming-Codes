@@ -1,0 +1,15 @@
+ unordered_map<int,int> m;
+    tc
+    {
+         scn(n);
+         vector<int> v(n);
+         rep(i,0,n)
+         {scn(v[i]);
+           m[v[i]]++;
+         }
+         ll mx=0;
+            for(auto it:m)
+            {
+                if(it.S>mx)
+                    mx=it.S;
+            }  

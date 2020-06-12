@@ -1,0 +1,112 @@
+ 
+   //  0 Based indexing k lye sab kch
+
+
+
+
+
+                           //    Om Namah Shivay   //
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define UNIQUE(V) (V).erase(unique((V).begin(),(V).end()),(V).end())
+#define LCM(x,y) (((x)/gcd((x),(y)))*(y))
+#define POPCOUNT __builtin_popcountll
+typedef pair < int, int > pii;
+typedef pair   <ll,ll > pll;
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         10005
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+
+//int knightDir[8][2] = { {-2,1},{-1,2},{1,2},{2,1},{2,-1},{-1,-2},{1,-2},{-2,-1} };
+//int dir4[4][2] = {{-1,0},{0,1},{1,0},{0,-1}};
+//int dir8[8][2] = {{-1,0},{0,1},{1,0},{0,-1},{-1,-1},{1,1},{1,-1},{-1,1}};ll mod=1e9+7;
+ll n,i,j,ar[maxx],blk[maxx],mn,val,x[maxx],y[maxx],len,endd;
+
+ll query(ll l,ll r)
+{
+    ll sm=0;
+    ll c_l=l/len;   // c_l & c_r are block no.s
+    ll c_r=r/len;
+    if(c_l==c_r) // Both in same block
+    for(i=l;i<=r;i++)
+      sm+=ar[i];
+      else
+      {
+          for(i=l,endd=(c_l+1)*len-1;i<=endd;i++)   // (block no of l +1)*total no of blocks-1
+              sm+=ar[i];
+              for(i=c_l+1;i<=c_r-1;i++)                
+                  sm+=blk[i];
+               for(i=c_r*len;i<=r;i++)           // start wala (block no of r )             
+                 sm+=ar[i];   
+      }
+    
+    return sm;
+    
+}
+   void update(ll ind,ll val)
+   {
+       ll old=ar[ind];
+       ar[ind]=val;
+       ll blk_no=ind/len;
+       blk[blk_no]+=(val-old);
+   }
+  
+
+im
+{
+    ll q;
+    scn(n);
+    rep(i,0,n)
+    scn(ar[i]);
+     len=sqrt(n)+1;
+    
+    for(i=0;i<n;i++)
+        blk[i/len]+=ar[i];
+        scn(q);
+        while(q--)
+        {
+            ll l,r;
+            scnl(l,r);
+        cout<<query(l,r);
+      nl;
+    
+        }
+        ll qq;
+        scn(qq);
+          while(qq--)
+          {
+              ll a,b,lf,rt;
+              scnl(a,b);
+              update(a,b);
+              scnl(lf,rt);
+              cout<<query(lf,rt);
+              nl;
+          }
+    
+    
+}

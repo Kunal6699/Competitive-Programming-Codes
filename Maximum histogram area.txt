@@ -1,0 +1,104 @@
+                         
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define UNIQUE(V) (V).erase(unique((V).begin(),(V).end()),(V).end())
+#define LCM(x,y) (((x)/__gcd((x),(y)))*(y))
+#define POPCOUNT __builtin_popcountll
+typedef pair < int, int > pii;
+typedef pair   <ll,ll > pll;
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         1000005
+#define inf          LLONG_MAX    //10000000000000000
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+ll ar[maxx],tree1[4*maxx+1],tree2[4*maxx+1],prv[maxx];
+
+//int knightDir[8][2] = { {-2,1},{-1,2},{1,2},{2,1},{2,-1},{-1,-2},{1,-2},{-2,-1} };
+//int dir4[4][2] = {{-1,0},{0,1},{1,0},{0,-1}};
+//int dir8[8][2] = {{-1,0},{0,1},{1,0},{0,-1},{-1,-1},{1,1},{1,-1},{-1,1}};ll mod=1e9+7;
+ll n,q,i,j,st,endd,s,l,m,f,a,b,c,d;
+ bool mrk[maxx];
+ll br[maxx],cr[maxx];
+im
+{
+   
+    tc
+   {
+       ll res,mx=0,k;
+      stack<ll> st;
+       scn(n);
+       rep(i,0,n)
+       scn(ar[i]);
+        i=0;
+       st.push(i);
+       i++;
+       while(i<n)
+       {
+           if(st.empty()||ar[i]>=ar[st.top()])
+           {
+               st.push(i);
+             i++;
+               
+           }
+           else
+           {
+               k=st.top();
+                   st.pop();
+                   if(st.empty())
+                       res=i*ar[k];
+                       else
+                       {
+                           res=ar[k]*(i-st.top()-1);
+                       }
+                       if(res>mx)
+                           mx=res;
+                   }
+                  
+           }
+           
+           while(!st.empty())
+           {
+               k=st.top();
+                   st.pop();
+                   if(st.empty())
+                       res=i*ar[k];
+                       else
+                       {
+                           res=ar[k]*(i-st.top()-1);
+                       }
+                       if(res>mx)
+                           mx=res;
+               
+           }
+            
+            prnt(mx);
+            nl;        
+       
+       }
+       
+       
+   }
+    

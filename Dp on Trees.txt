@@ -1,0 +1,82 @@
+  
+     // The problem is ki koi bagal wala sam nai ho i.e maximum sum formed by consecutive nodes sum....
+
+                         
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define UNIQUE(V) (V).erase(unique((V).begin(),(V).end()),(V).end())
+#define LCM(x,y) (((x)/gcd((x),(y)))*(y))
+#define POPCOUNT __builtin_popcountll
+typedef pair < int, int > pii;
+typedef pair   <ll,ll > pll;
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         100005
+#define inf          INT_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+
+//int knightDir[8][2] = { {-2,1},{-1,2},{1,2},{2,1},{2,-1},{-1,-2},{1,-2},{-2,-1} };
+//int dir4[4][2] = {{-1,0},{0,1},{1,0},{0,-1}};
+//int dir8[8][2] = {{-1,0},{0,1},{1,0},{0,-1},{-1,-1},{1,1},{1,-1},{-1,1}};ll mod=1e9+7;
+ll n,i,j,sz[maxx],ans[maxx],k1,k2,pare[maxx],blk,q,tim=0,in[maxx],out[maxx],m;
+
+vector<ll> v[maxx];
+ll dp1[maxx],dp2[maxx],lim,ar[maxx],tot,y;
+
+
+void dfs(ll u,ll par)
+{
+    ll sm1=0,sm2=0;
+    for(auto it:v[u])
+    {
+        if(it==par)
+        continue;
+        dfs(it,u);
+        sm1=(sm1+dp2[it])%mod;  // dp1[a] denotes maximum possible by including node a and dp2[a] opposite
+         sm2=(sm2+max(dp1[it],dp2[it]))%mod; // node it ka ans  ka sums of all   
+    }
+         dp1[u]=(ar[u]+sm1)%mod;
+         dp2[u]=sm2;
+}
+
+
+im
+{
+    scn(n);
+    rep(i,0,n-1)
+    {
+        scn(y);
+        v[y].pb(i+1);
+        v[i+1].pb(y);
+    }
+    
+    
+    rep(i,0,n)
+    scn(ar[i]);
+    dfs(0,-1);
+    cout<<max(dp1[0],dp2[0]);
+    
+}

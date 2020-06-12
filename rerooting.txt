@@ -1,0 +1,104 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld ",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         200005
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+ll n,i,j,ar[maxx],k,lev,tim=0,e,ans=0;
+vector<ll> vt[maxx];
+ll sz[maxx],dp[maxx];
+ void dfs(ll u,ll par)
+ {
+     sz[u]=1;
+    for(auto it:vt[u])
+    {
+     if(it==par)
+     continue;
+     dfs(it,u);
+     sz[u]+=sz[it];    
+         
+    }
+        
+ }
+  void calc(ll u,ll par)
+  {
+    dp[u]=sz[u];
+    for(auto it:vt[u])
+    {
+        if(it!=par)
+        {
+            calc(it,u);
+           dp[u]+=dp[it]; 
+        }    
+    }  
+  }
+   void res(ll v,ll par)
+   {
+       ans=max(dp[v],ans);
+       for(auto it:vt[v])
+       {
+         if(it==par)
+          continue;
+         dp[v]-=dp[it];
+         dp[v]-=sz[it];
+         sz[v]-=sz[it];
+          sz[it]+=sz[v];
+         dp[it]+=sz[v];
+         dp[it]+=dp[v];
+         
+         res(it,v);
+         dp[it]-=dp[v];
+         dp[it]-=sz[v];
+         sz[it]-=sz[v];
+         sz[v]+=sz[it];
+         dp[v]+=sz[it];
+         dp[v]+=dp[it];
+        
+       }    
+   }
+
+im
+{
+   scn(n);
+   mem(vt);
+   rep(i,0,n-1)
+   {
+       ll a,b;
+       scnl(a,b);
+       vt[a].pb(b);
+       vt[b].pb(a);
+   }
+   mem(sz);mem(dp);
+     dfs(1,-1);  
+      calc(1,-1);
+     res(1,-1);
+     prnt(ans); 
+               
+   
+}
+
+

@@ -1,0 +1,93 @@
+                         
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define UNIQUE(V) (V).erase(unique((V).begin(),(V).end()),(V).end())
+#define LCM(x,y) (((x)/gcd((x),(y)))*(y))
+#define POPCOUNT __builtin_popcountll
+typedef pair < int, int > pii;
+typedef pair   <ll,ll > pll;
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         100005
+#define inf          INT_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+
+//int knightDir[8][2] = { {-2,1},{-1,2},{1,2},{2,1},{2,-1},{-1,-2},{1,-2},{-2,-1} };
+//int dir4[4][2] = {{-1,0},{0,1},{1,0},{0,-1}};
+//int dir8[8][2] = {{-1,0},{0,1},{1,0},{0,-1},{-1,-1},{1,1},{1,-1},{-1,1}};ll mod=1e9+7;
+ll n,i,j,sz[maxx],ans[maxx],k1,k2,pare[maxx],blk,q,tim=0,in[maxx],out[maxx],m;
+
+vector<ll> v[maxx];
+ll ar[maxx],lim,tot,y,f,p,x,k;
+string s;
+
+
+ll egg(ll n,ll k)
+{
+    ll dp[n+1][k+1];
+     rep(i,0,n+1)
+    rep(j,0,k+1)
+    {
+        if(i==0||j==0)
+            dp[i][j]=0;
+    }
+    
+    rep(i,1,n+1)
+    rep(j,1,k+1)
+    {
+        dp[i][j]=mod;
+        if(i==1)
+            {dp[i][j]=j;
+            continue;
+            }
+            if(j==1)
+            {
+                dp[i][j]=1;
+                continue;
+            }
+            
+            for(p=1;p<=j;p++)
+            {
+                ll rj=max(dp[i][j-p],dp[i-1][p-1]);
+                if(dp[i][j]>rj+1)
+                    dp[i][j]=rj+1;
+            } 
+            
+    }
+    return dp[n][k];
+}
+
+
+im
+{
+    tc
+    {
+        scnl(n,k);
+        cout<<egg(n,k);
+        nl;
+    }
+    
+}

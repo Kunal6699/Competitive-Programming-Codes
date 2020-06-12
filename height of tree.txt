@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll           long long
+#define rep(i,j,n)   for(ll i=j;i<n;i++)
+#define scn(a)       scanf("%lld",&a)
+#define scnl(a,b)      scanf("%lld %lld",&a,&b)
+#define nl              printf("\n")
+#define prnt(a)     printf("%lld",a)
+#define tc           ll t; scn(t); while(t--)
+#define inp          scn(n); rep(i,0,n) scn(a[i]) 
+#define vec          vector<ll>
+#define pb           push_back    
+#define pairs        pair<ll,ll>
+#define F            first
+#define S          second
+#define all(v)       v.begin(),v.end()
+#define srt(v)       sort(v.begin(),v.end())
+#define srtr(v)      sort(v.rbegin(),v.rend())
+#define mem(a)       memset(a,0,sizeof(a))
+#define im           int main()
+#define maxx         300005
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+#define pq            priority_queue<ll>
+#define pqmn       priority_queue<ll,vector<ll>,greater<ll>>
+#define oto       for(auto itr=v.begin();itr!=v.end();itr++)
+#define otor       for(auto itr=v.rbegin();itr!=v.rend();itr++)
+
+#define fstt         ios_base_sync::with_stdio(0); cin.tie(0); cout.tie(0);
+ll mod=1e9+7;
+ll n,i,j,ar[maxx],m;
+bool brdg=false;
+vector<pair<ll,ll>> ans;
+vector<ll> v[maxx];
+ll lev[maxx],dp[maxx];
+
+ll dfs(ll u,ll par)
+{
+    ll ht=0;
+    for(auto it:v[u])
+    {
+        if(it!=par)
+        {
+            ll x=dfs(it,u);
+            if(x>ht)
+                ht=x;
+        }
+          
+    }
+    return ht+1;  
+}
+
+
+im
+{
+    scnl(n,m);
+    while(m--)
+    {
+        ll x,y;
+        scnl(x,y);
+        v[x].pb(y);
+        v[y].pb(x);
+        
+    }
+      
+    cout<<dfs(1,-1);
+    
+}
